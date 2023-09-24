@@ -1,8 +1,8 @@
-const paymentModel = require('../paymentModel/paymentModel')
+const paymentModel = require('../reservationModel/reservationModel')
 
-class paymentService {
+class reservationService {
     async addPayment(info) {
-        return paymentModel.addPayment(info);
+        return paymentModel.addReservation(info);
     }
 
     async getPayments() {
@@ -22,4 +22,4 @@ class paymentService {
     }
 }
 
-module.exports = new paymentService();
+module.exports = new reservationService();

@@ -53,15 +53,15 @@ class bookController {
             const payment_method = req.body.payment_method;
             const total_price = Number(book[0].unit_price) * Number(number_of_units);
 
-            const paymentDetails = { book_id: book[0].book_id, payment_method, number_of_units, unit_price: book[0].unit_price,
+            const reservationDetails = { book_id: book[0].book_id, payment_method, number_of_units, unit_price: book[0].unit_price,
                 total_price, buyer_name, buyer_address, buyer_phone, purchase_date, national_id };
 
-            const payment = await bookService.reserveBook(paymentDetails);
-            if(payment) {
+            const reservation = await bookService.reserveBook(reservationDetails);
+            if(reservation) {
                 const done = await bookService.updateAvailableUnits(book[0].book_id, book[0].available_units - number_of_units);
 
                 if (done)
-                    return res.status(201).json(payment);
+                    return res.status(201).json(reservation);
             }
         } catch (err) {
             console.error(err);
@@ -88,48 +88,6 @@ class bookController {
         }
     }
 
-    // async getBooks(req, res) {
-    //     try {
-    //         let value = req.query.value;
-    //
-    //         if(value){
-    //             value = req.query.value;
-    //             const key = req.query.key;
-    //             let constrainedBooks;
-    //             const minAvailableUnits = req.body.minAvailableUnits;
-    //             const maxAvailableUnits = req.body.maxAvailableUnits;
-    //             const book = await bookService.getBook(key, value);
-    //             if(minAvailableUnits && maxAvailableUnits){
-    //                 constrainedBooks = book.filter((value) => {return value.available_units >= minAvailableUnits && value.available_units <= maxAvailableUnits});
-    //             }
-    //             const minUnitPrice = req.body.minUnitPrice;
-    //             const maxUnitPrice = req.body.maxUnitPrice;
-    //             let priceConstBooks;
-    //             if(minUnitPrice && maxUnitPrice){
-    //                 priceConstBooks = book.filter((value) => {return value.unit_price >= minUnitPrice && value.unit_price <= maxUnitPrice});
-    //             }
-    //
-    //             if(constrainedBooks && priceConstBooks){
-    //                 const filteredElements = [...constrainedBooks].filter(element => new Set(priceConstBooks).has(element));
-    //                 return res.status(200).json(filteredElements);
-    //             }
-    //             else if(constrainedBooks){
-    //                 return res.status(200).json(constrainedBooks);
-    //             }
-    //             else if(priceConstBooks){
-    //                 return res.status(200).json(priceConstBooks);
-    //             }
-    //
-    //             return res.status(200).json(book);
-    //         }
-    //         const books = await bookService.getBooks();
-    //         return res.status(201).json(books);
-    //
-    //     } catch (err) {
-    //         console.error(err);
-    //         return res.status(500).json("Something went wrong!");
-    //     }
-    // }
 
     async getBooks(req, res) {
         try {
@@ -137,15 +95,7 @@ class bookController {
             const { key, value } = req.query;
             const { minAvailableUnits, maxAvailableUnits, minUnitPrice, maxUnitPrice } = req.body;
 
-            if (value && !key){
-                result = await bookService.getBookAny(value);
-            }
-            else if (value && key) {
-                result = await bookService.getBook(key, value);
-            }
-            else if (!value && !key){
-                result = await bookService.getBooks();
-            }
+            result = await bookService.getBook(key, value);
 
             const filteredResult = result
                 .filter((book) => {
@@ -183,6 +133,7 @@ class bookController {
             return res.status(500).json("Something went wrong!");
         }
     }
+
     async updateBook(req, res) {
         try {
             const id = req.params.book_id;

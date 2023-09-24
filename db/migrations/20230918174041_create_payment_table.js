@@ -3,7 +3,7 @@
  * @returns {Knex.SchemaBuilder}
  */
 exports.up = function(knex) {
-    return knex.schema.createTable('payment', table => {
+    return knex.schema.createTable('reservation', table => {
         table.increments('payment_id');
         table.integer('book_id').notNullable().references('book_id').inTable('book');
         table.string('payment_method').notNullable();
@@ -24,5 +24,5 @@ exports.up = function(knex) {
  * @returns {Knex.SchemaBuilder}
  */
 exports.down = function(knex) {
-    return knex.schema.dropTable('payment');
+    return knex.schema.dropTable('reservation');
 };

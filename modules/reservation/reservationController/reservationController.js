@@ -1,6 +1,6 @@
-const paymentService = require('../paymentService/paymentService');
+const paymentService = require('../reservationService/reservationService');
 
-class paymentController {
+class reservationController {
     async addPayment(req, res) {
         try {
             const id = await paymentService.addPayment(req.body);
@@ -64,4 +64,4 @@ class paymentController {
     }
 }
 
-module.exports = new paymentController();
+module.exports = new reservationController();

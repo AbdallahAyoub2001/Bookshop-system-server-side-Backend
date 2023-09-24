@@ -3,7 +3,7 @@ const db = require("../../../db/db");
 const { Payment, Book} = require("../../../db/DatabaseTables");
 
 let payment_method = body('payment_method').notEmpty().withMessage('establish date cannot be empty')
-    .isIn(['Cash', 'Credit Card', 'Paypal']).withMessage('Invalid payment method!');
+    .isIn(['Cash', 'Credit Card', 'Paypal']).withMessage('Invalid reservation method!');
 
 let number_of_units = body('number_of_units').isInt().withMessage('This field have to be a number.');
 
@@ -49,7 +49,7 @@ let id = param('payment_id').custom(async (value) => {
         throw new Error();
     }
     return true;
-}).withMessage('payment does not exist!!');
+}).withMessage('reservation does not exist!!');
 
 const postValidation = [
     book_id,

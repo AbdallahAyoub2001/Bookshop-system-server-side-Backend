@@ -1,30 +1,22 @@
 const bookModel = require('../bookModel/bookModel')
-const paymentModel = require('../../payment/paymentModel/paymentModel')
+const reservationModel = require('../../reservation/reservationModel/reservationModel')
 
 class bookService {
     async addBook(info, file_id) {
         return bookModel.addBook(info, file_id);
     }
 
-    async reserveBook(paymentDetails){
-        // console.log('Book Service: ', paymentDetails);
-        return paymentModel.addPayment(paymentDetails);
+    async reserveBook(reservationDetails){
+        // console.log('Book Service: ', reservationDetails);
+        return reservationModel.addReservation(reservationDetails);
     }
 
     async uploadBookFile(id, file_id) {
         return bookModel.uploadBookFile(id, file_id);
     }
 
-    async getBooks() {
-        return bookModel.getBooks();
-    }
-
     async getBook(key, value) {
         return bookModel.getBook(key, value);
-    }
-
-    async getBookAny(value) {
-        return bookModel.getBookAny(value);
     }
 
     async updateAvailableUnits(id, units) {

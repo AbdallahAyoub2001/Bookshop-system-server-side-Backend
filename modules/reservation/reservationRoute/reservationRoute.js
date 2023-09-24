@@ -1,7 +1,7 @@
 // Routes page
 const express = require('express');
-const paymentController = require('../paymentController/paymentController');
-const { postValidation, putValidation, getValidation, deleteValidation, validate } = require('../paymentValidation/paymentValidation.js')
+const paymentController = require('../reservationController/reservationController');
+const { postValidation, putValidation, getValidation, deleteValidation, validate } = require('../reservationValidation/reservationValidation.js')
 const bodyParser = require("body-parser");
 const authService = require('../../middlewares/authentication');
 

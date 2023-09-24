@@ -10,7 +10,7 @@ const userRouter = require('./modules/user/userRoute/userRoute');
 const bookRouter = require('./modules/book/bookRoute/bookRoute');
 const authorRouter = require('./modules/author/authorRoute/authorRoute');
 const publisherRouter = require('./modules/publisher/publisherRoute/publisherRoute');
-const paymentRouter = require('./modules/payment/paymentRoute/paymentRoute');
+const paymentRouter = require('./modules/reservation/reservationRoute/reservationRoute');
 
 app.use(userRouter);
 app.use(bookRouter);

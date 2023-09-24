@@ -7,7 +7,7 @@ const bookController = require('../bookController/bookController');
 const { postValidation, putValidation, getValidation, deleteValidation,
     addBookFilesValidation, deleteBookFilesValidation, searchBookValidation, validate } = require('../bookValidation/bookValidation.js')
 
-const paymentValidation = require('../../payment/paymentValidation/paymentValidation')
+const reservationValidation = require('../../reservation/reservationValidation/reservationValidation')
 const authService = require('../../middlewares/authentication');
 const fManager = require('../../fileManager/fManagerModel/fManagerModel');
 
@@ -18,7 +18,7 @@ router.post('/books', authService.authenticated, fManager.upload.single('book_fi
 router.post('/books/:book_id/files', authService.authenticated, fManager.upload.single('book_file'), addBookFilesValidation, validate, bookController.uploadBookFile);
 
 // Reserve a book
-router.post('/books/reserve', authService.authenticated, paymentValidation.postValidation, validate, bookController.reserveBook);
+router.post('/books/reserve', authService.authenticated, reservationValidation.postValidation, validate, bookController.reserveBook);
 
 // Select all Books OR:
 // select a specific Book using key and value http://localhost:3000/books/?key=name&value=Abood
